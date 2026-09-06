@@ -44,7 +44,7 @@ export function EnquiryPopup({ open, onClose }: EnquiryPopupProps) {
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4 backdrop-blur-md animate-in fade-in duration-300"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/75 p-4 backdrop-blur-md animate-in fade-in duration-300 overflow-hidden"
       role="presentation"
       onMouseDown={(event) => {
         if (event.target === event.currentTarget) handleClose();
@@ -54,10 +54,10 @@ export function EnquiryPopup({ open, onClose }: EnquiryPopupProps) {
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className="relative w-full max-w-lg md:max-w-xl max-h-[92vh] overflow-y-auto rounded-2xl border border-gold/50 bg-[#14110d]/85 p-6 sm:p-9 backdrop-blur-2xl shadow-[0_0_80px_rgba(0,0,0,0.85)] text-white animate-in zoom-in-95 duration-400"
+        className="relative w-full max-w-lg md:max-w-xl max-h-[92vh] overflow-y-auto overflow-x-hidden scrollbar-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden rounded-2xl border border-gold/50 bg-[#14110d]/95 p-5 sm:p-7 backdrop-blur-2xl shadow-[0_0_80px_rgba(0,0,0,0.85)] text-white animate-in zoom-in-95 duration-400"
       >
         {/* Top Gold Accent Bar */}
-        <div className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-transparent via-gold to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-transparent via-gold to-transparent pointer-events-none" />
 
         {/* Ambient Dark Gold Radial Light */}
         <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-gold/20 blur-3xl pointer-events-none" />
@@ -68,46 +68,46 @@ export function EnquiryPopup({ open, onClose }: EnquiryPopupProps) {
           type="button"
           onClick={handleClose}
           aria-label="Close enquiry form"
-          className="absolute right-5 top-5 z-10 grid h-9 w-9 place-items-center rounded-full border border-white/20 bg-black/40 text-white/90 transition-all duration-300 hover:border-gold hover:bg-gold/25 hover:text-gold cursor-pointer"
+          className="absolute right-4 top-4 z-10 grid h-8 w-8 place-items-center rounded-full border border-white/20 bg-black/40 text-white/90 transition-all duration-300 hover:border-gold hover:bg-gold/25 hover:text-gold cursor-pointer"
         >
-          <X size={18} />
+          <X size={16} />
         </button>
 
         {submitted ? (
-          <div className="flex min-h-[320px] flex-col items-center justify-center text-center py-6">
-            <div className="grid h-16 w-16 place-items-center rounded-full bg-gold/20 text-gold border border-gold/40 shadow-[0_0_30px_rgba(212,175,55,0.3)]">
-              <CheckCircle2 size={36} strokeWidth={1.5} />
+          <div className="flex min-h-[280px] flex-col items-center justify-center text-center py-4">
+            <div className="grid h-14 w-14 place-items-center rounded-full bg-gold/20 text-gold border border-gold/40 shadow-[0_0_30px_rgba(212,175,55,0.3)]">
+              <CheckCircle2 size={32} strokeWidth={1.5} />
             </div>
-            <p className="eyebrow text-gold mt-6 tracking-[0.25em]">Enquiry Received</p>
-            <h2 id={titleId} className="mt-2 font-display text-3xl md:text-4xl text-white">
+            <p className="eyebrow text-gold mt-5 tracking-[0.25em]">Enquiry Received</p>
+            <h2 id={titleId} className="mt-1.5 font-display text-2xl md:text-3xl text-white">
               Thank you for reaching out.
             </h2>
-            <p className="mt-3 max-w-md text-sm leading-relaxed text-white/75">
+            <p className="mt-2.5 max-w-md text-xs sm:text-sm leading-relaxed text-white/75">
               Our lead interior architect will review your project details and get back to you within 24 hours.
             </p>
             <button
               type="button"
               onClick={handleClose}
-              className="mt-8 border border-gold bg-gold px-8 py-3.5 text-xs font-bold uppercase tracking-[0.2em] text-ink transition-all hover:bg-white hover:border-white shadow-lg cursor-pointer"
+              className="mt-6 border border-gold bg-gold px-7 py-3 text-xs font-bold uppercase tracking-[0.2em] text-ink transition-all hover:bg-white hover:border-white shadow-lg cursor-pointer"
             >
               Close Window
             </button>
           </div>
         ) : (
           <div>
-            <div className="flex items-center gap-2.5 text-gold">
-              <Sparkles size={20} strokeWidth={1.5} />
+            <div className="flex items-center gap-2 text-gold">
+              <Sparkles size={18} strokeWidth={1.5} />
               <span className="eyebrow text-gold font-semibold tracking-[0.25em]">Callisto Living Studio</span>
             </div>
 
-            <h2 id={titleId} className="mt-2 font-display text-3xl sm:text-4xl leading-tight text-white">
+            <h2 id={titleId} className="mt-1.5 font-display text-2xl sm:text-3xl leading-tight text-white">
               Begin Your <span className="italic text-gold">Interior Project</span>
             </h2>
-            <p className="mt-2 text-xs sm:text-sm text-white/70">
+            <p className="mt-1.5 text-xs text-white/70">
               Share your vision and our design team will curate a personalized project proposal.
             </p>
 
-            <form className="mt-6 space-y-4" onSubmit={onSubmit}>
+            <form className="mt-5 space-y-3.5" onSubmit={onSubmit}>
               <div>
                 <label className="eyebrow text-[10px] text-gold/90 font-medium">Full Name</label>
                 <input
@@ -115,11 +115,11 @@ export function EnquiryPopup({ open, onClose }: EnquiryPopupProps) {
                   name="name"
                   autoComplete="name"
                   placeholder="e.g. Eleanor Vance"
-                  className="mt-1.5 w-full rounded-t-md border-b border-gold/40 bg-white/5 px-3 py-2.5 text-sm text-white outline-none transition-all placeholder:text-white/35 focus:border-gold focus:bg-white/10"
+                  className="mt-1 w-full rounded-t-md border-b border-gold/40 bg-white/5 px-3 py-2 text-sm text-white outline-none transition-all placeholder:text-white/35 focus:border-gold focus:bg-white/10"
                 />
               </div>
 
-              <div className="grid gap-4 sm:grid-cols-2">
+              <div className="grid gap-3.5 sm:grid-cols-2">
                 <div>
                   <label className="eyebrow text-[10px] text-gold/90 font-medium">Email Address</label>
                   <input
@@ -128,7 +128,7 @@ export function EnquiryPopup({ open, onClose }: EnquiryPopupProps) {
                     name="email"
                     autoComplete="email"
                     placeholder="you@example.com"
-                    className="mt-1.5 w-full rounded-t-md border-b border-gold/40 bg-white/5 px-3 py-2.5 text-sm text-white outline-none transition-all placeholder:text-white/35 focus:border-gold focus:bg-white/10"
+                    className="mt-1 w-full rounded-t-md border-b border-gold/40 bg-white/5 px-3 py-2 text-sm text-white outline-none transition-all placeholder:text-white/35 focus:border-gold focus:bg-white/10"
                   />
                 </div>
                 <div>
@@ -139,7 +139,7 @@ export function EnquiryPopup({ open, onClose }: EnquiryPopupProps) {
                     name="phone"
                     autoComplete="tel"
                     placeholder="+91 98765 43210"
-                    className="mt-1.5 w-full rounded-t-md border-b border-gold/40 bg-white/5 px-3 py-2.5 text-sm text-white outline-none transition-all placeholder:text-white/35 focus:border-gold focus:bg-white/10"
+                    className="mt-1 w-full rounded-t-md border-b border-gold/40 bg-white/5 px-3 py-2 text-sm text-white outline-none transition-all placeholder:text-white/35 focus:border-gold focus:bg-white/10"
                   />
                 </div>
               </div>
@@ -150,7 +150,7 @@ export function EnquiryPopup({ open, onClose }: EnquiryPopupProps) {
                   required
                   value={budget}
                   onChange={(event) => setBudget(event.target.value)}
-                  className="mt-1.5 w-full rounded-t-md border-b border-gold/40 bg-[#1a1713] px-3 py-2.5 text-sm text-white outline-none transition-all focus:border-gold cursor-pointer"
+                  className="mt-1 w-full rounded-t-md border-b border-gold/40 bg-[#1a1713] px-3 py-2 text-sm text-white outline-none transition-all focus:border-gold cursor-pointer"
                 >
                   <option value="" disabled className="bg-[#1a1713] text-white/50">Select your budget range</option>
                   <option value="under-5" className="bg-[#1a1713] text-white">Under ₹5 lakh</option>
@@ -161,7 +161,7 @@ export function EnquiryPopup({ open, onClose }: EnquiryPopupProps) {
               </div>
 
               {isLowBudget && (
-                <p role="alert" className="border-l-2 border-gold bg-gold/15 p-3 text-xs leading-relaxed text-white/90">
+                <p role="alert" className="border-l-2 border-gold bg-gold/15 p-2.5 text-xs leading-relaxed text-white/90">
                   Currently, our bespoke architecture packages start at ₹5 lakh. Select another range or contact us directly.
                 </p>
               )}
@@ -169,7 +169,7 @@ export function EnquiryPopup({ open, onClose }: EnquiryPopupProps) {
               <button
                 type="submit"
                 disabled={isLowBudget}
-                className="group mt-4 flex w-full items-center justify-between border border-gold bg-gold px-6 py-3.5 text-xs font-bold uppercase tracking-[0.2em] text-ink transition-all duration-300 hover:bg-white hover:border-white hover:text-black hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] disabled:cursor-not-allowed disabled:bg-stone/50 disabled:text-white/40 cursor-pointer"
+                className="group mt-3 flex w-full items-center justify-between border border-gold bg-gold px-5 py-3 text-xs font-bold uppercase tracking-[0.2em] text-ink transition-all duration-300 hover:bg-white hover:border-white hover:text-black hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] disabled:cursor-not-allowed disabled:bg-stone/50 disabled:text-white/40 cursor-pointer"
               >
                 <span>Send Enquiry</span>
                 <span className="text-base transition-transform duration-300 group-hover:translate-x-1">→</span>

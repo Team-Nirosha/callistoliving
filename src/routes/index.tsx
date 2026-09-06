@@ -51,7 +51,7 @@ function Home() {
     if (typeof window !== "undefined" && sessionStorage.getItem("enquiry_popup_dismissed")) {
       return;
     }
-    const timer = window.setTimeout(() => setIsEnquiryOpen(true), 10000);
+    const timer = window.setTimeout(() => setIsEnquiryOpen(true), 500);
     return () => window.clearTimeout(timer);
   }, []);
 
