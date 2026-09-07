@@ -12,15 +12,58 @@ export type Hotspot = {
 };
 
 export const HOTSPOTS: Hotspot[] = [
-  { id: "sofa", position: [0, 1.5, -3.4], title: "Italian Leather Sofa", lines: ["Full-grain hide", "Bespoke 4.4m frame"] },
-  { id: "marble", position: [2.6, 0.35, 0.6], title: "Italian Marble", lines: ["Natural stone", "Premium honed finish"] },
-  { id: "pendant", position: [0, 2.6, -1], title: "Pendant Light", lines: ["Brass finish", "Handcrafted in Milan"] },
-  { id: "art", position: [-1, 2.6, -7.4], title: "Commissioned Artwork", lines: ["Oil on linen", "Studio collection"] },
-  { id: "table", position: [15, 1.35, -1], title: "Oak Dining Monolith", lines: ["Solid smoked oak", "Seats eight"] },
-  { id: "island", position: [30, 1.6, -2], title: "Kitchen Island", lines: ["Book-matched marble", "Brass fittings"] },
-  { id: "bed", position: [45, 1.9, -2.5], title: "Belgian Linen Bed", lines: ["Upholstered headboard", "Custom width"] },
-  { id: "plant", position: [56, 1.8, 5], title: "Olive Terrace", lines: ["Living specimens", "Terracotta vessels"] },
+  {
+    id: "sofa",
+    position: [0, 1.5, -3.4],
+    title: "Italian Leather Sofa",
+    lines: ["Full-grain hide", "Bespoke 4.4m frame"],
+  },
+  {
+    id: "marble",
+    position: [2.6, 0.35, 0.6],
+    title: "Italian Marble",
+    lines: ["Natural stone", "Premium honed finish"],
+  },
+  {
+    id: "pendant",
+    position: [0, 2.6, -1],
+    title: "Pendant Light",
+    lines: ["Brass finish", "Handcrafted in Milan"],
+  },
+  {
+    id: "art",
+    position: [-1, 2.6, -7.4],
+    title: "Commissioned Artwork",
+    lines: ["Oil on linen", "Studio collection"],
+  },
+  {
+    id: "table",
+    position: [15, 1.35, -1],
+    title: "Oak Dining Monolith",
+    lines: ["Solid smoked oak", "Seats eight"],
+  },
+  {
+    id: "island",
+    position: [30, 1.6, -2],
+    title: "Kitchen Island",
+    lines: ["Book-matched marble", "Brass fittings"],
+  },
+  {
+    id: "bed",
+    position: [45, 1.9, -2.5],
+    title: "Belgian Linen Bed",
+    lines: ["Upholstered headboard", "Custom width"],
+  },
+  {
+    id: "plant",
+    position: [56, 1.8, 5],
+    title: "Olive Terrace",
+    lines: ["Living specimens", "Terracotta vessels"],
+  },
 ];
+
+/** Stable temp vector reused across all hotspot animations — avoids per-frame GC pressure */
+const _scale = new THREE.Vector3();
 
 function Spot({ spot }: { spot: Hotspot }) {
   const [hovered, setHovered] = useState(false);
@@ -33,12 +76,15 @@ function Spot({ spot }: { spot: Hotspot }) {
     if (ring.current) {
       ring.current.lookAt(s.camera.position);
       const target = hovered ? 1.55 : 1 + Math.sin(t * 2) * 0.06;
-      ring.current.scale.lerp(new THREE.Vector3(target, target, target), 1 - Math.exp(-8 * dt));
+      // Reuse stable temp vector — no per-frame allocation
+      _scale.set(target, target, target);
+      ring.current.scale.lerp(_scale, 1 - Math.exp(-8 * dt));
       const m = ring.current.material as THREE.MeshBasicMaterial;
       m.opacity = THREE.MathUtils.lerp(m.opacity, hovered ? 0.95 : 0.4, 1 - Math.exp(-8 * dt));
     }
     if (core.current) core.current.lookAt(s.camera.position);
   });
+
 
   return (
     <group position={spot.position}>
@@ -63,12 +109,20 @@ function Spot({ spot }: { spot: Hotspot }) {
       </mesh>
       <mesh ref={ring} renderOrder={2}>
         <ringGeometry args={[0.12, 0.145, 40]} />
-        <meshBasicMaterial color="#c9a56a" transparent opacity={0.4} depthTest={false} side={THREE.DoubleSide} />
+        <meshBasicMaterial
+          color="#c9a56a"
+          transparent
+          opacity={0.4}
+          depthTest={false}
+          side={THREE.DoubleSide}
+        />
       </mesh>
       {hovered && (
         <Html center distanceFactor={7} position={[0, 0.45, 0]} zIndexRange={[40, 0]}>
           <div className="pointer-events-none w-56 border border-gold/40 bg-ink/85 px-4 py-3 backdrop-blur-md">
-            <p className="font-display text-lg leading-tight tracking-wide text-sand">{spot.title}</p>
+            <p className="font-display text-lg leading-tight tracking-wide text-sand">
+              {spot.title}
+            </p>
             {spot.lines.map((l) => (
               <p key={l} className="mt-1 text-[11px] uppercase tracking-[0.18em] text-sand/60">
                 {l}

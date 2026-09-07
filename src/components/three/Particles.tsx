@@ -3,7 +3,7 @@ import { useMemo, useRef } from "react";
 import * as THREE from "three";
 import { frame } from "@/lib/store";
 
-export function Particles({ count = 700 }: { count?: number }) {
+export function Particles({ count = 300 }: { count?: number }) {
   const ref = useRef<THREE.Points>(null);
   const positions = useMemo(() => {
     const a = new Float32Array(count * 3);
@@ -15,19 +15,15 @@ export function Particles({ count = 700 }: { count?: number }) {
     return a;
   }, [count]);
 
-  useFrame((s, delta) => {
-    const dt = Math.min(delta, 0.05);
+  useFrame((s) => {
+    // Skip animation when tab is not visible — saves GPU/battery
+    if (document.hidden) return;
     const pts = ref.current;
     if (!pts) return;
-    const arr = pts.geometry.attributes.position.array as Float32Array;
-    for (let i = 0; i < count; i++) {
-      arr[i * 3 + 1] += dt * (0.04 + (i % 5) * 0.01);
-      arr[i * 3] += Math.sin(s.clock.elapsedTime * 0.2 + i) * dt * 0.05;
-      if (arr[i * 3 + 1] > 4.6) arr[i * 3 + 1] = 0;
-    }
-    pts.geometry.attributes.position.needsUpdate = true;
-    pts.rotation.y = frame.pointerX * 0.02;
-    pts.position.y = frame.pointerY * -0.2;
+    const t = s.clock.elapsedTime;
+    pts.rotation.y = t * 0.015 + frame.pointerX * 0.02;
+    pts.position.y = Math.sin(t * 0.25) * 0.08 + frame.pointerY * -0.15;
+    pts.position.x = Math.cos(t * 0.18) * 0.05;
   });
 
   return (
@@ -46,3 +42,4 @@ export function Particles({ count = 700 }: { count?: number }) {
     </points>
   );
 }
+

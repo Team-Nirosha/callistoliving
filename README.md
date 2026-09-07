@@ -26,8 +26,9 @@ The website must feel like a premium Awwwards-level
 3D architecture/interior-design website.
 
 ==================================================
+
 1. HERO — FULLSCREEN 3D INTERIOR
-==================================================
+   \==================================================
 
 The first screen should be a REAL 3D luxury living room.
 
@@ -84,8 +85,7 @@ Buttons:
 EXPLORE OUR WORK
 ENTER 3D EXPERIENCE
 
-==================================================
-2. REAL 3D CAMERA MOVEMENT
+================================================== 2. REAL 3D CAMERA MOVEMENT
 ==================================================
 
 The camera must continuously have subtle cinematic movement.
@@ -110,8 +110,7 @@ Do NOT make the movement aggressive.
 
 The scene should feel like a cinematic architectural walkthrough.
 
-==================================================
-3. SCROLL = 3D CAMERA JOURNEY
+================================================== 3. SCROLL = 3D CAMERA JOURNEY
 ==================================================
 
 This is extremely important.
@@ -121,15 +120,15 @@ Scrolling should control the 3D camera.
 Scroll down:
 
 Living Room
-      ↓
+↓
 Dining Room
-      ↓
+↓
 Kitchen
-      ↓
+↓
 Bedroom
-      ↓
+↓
 Balcony
-      ↓
+↓
 Exterior
 
 Use GSAP ScrollTrigger.
@@ -156,8 +155,7 @@ camera exits toward exterior.
 
 The camera movement must be smooth and cinematic.
 
-==================================================
-4. 3D HOUSE / FLOOR PLAN
+================================================== 4. 3D HOUSE / FLOOR PLAN
 ==================================================
 
 Create an interactive 3D apartment/house.
@@ -203,8 +201,7 @@ Contemporary Luxury
 Area:
 620 sq.ft.
 
-==================================================
-5. INTERACTIVE 3D HOTSPOTS
+================================================== 5. INTERACTIVE 3D HOTSPOTS
 ==================================================
 
 Place floating 3D hotspots around the interior.
@@ -237,8 +234,7 @@ Premium finish
 The hotspot should exist in 3D space,
 not just as normal HTML cards.
 
-==================================================
-6. 3D FURNITURE MOVEMENT
+================================================== 6. 3D FURNITURE MOVEMENT
 ==================================================
 
 Furniture should have subtle animations.
@@ -264,8 +260,7 @@ smooth intensity animation
 Do not animate everything continuously.
 Animations should feel realistic and luxurious.
 
-==================================================
-7. 3D MATERIAL EXPERIENCE
+================================================== 7. 3D MATERIAL EXPERIENCE
 ==================================================
 
 Create a section:
@@ -291,8 +286,7 @@ floor transitions to wood.
 
 Use smooth texture/material transition.
 
-==================================================
-8. DAY / NIGHT MODE
+================================================== 8. DAY / NIGHT MODE
 ==================================================
 
 Add:
@@ -323,8 +317,7 @@ point lights
 environment intensity
 sky/background
 
-==================================================
-9. 3D LIGHTING
+================================================== 9. 3D LIGHTING
 ==================================================
 
 Use realistic Three.js lighting.
@@ -344,8 +337,7 @@ Add subtle bloom/glow where appropriate.
 
 Do not overuse bloom.
 
-==================================================
-10. 3D PARTICLES
+================================================== 10. 3D PARTICLES
 ==================================================
 
 Add subtle floating particles/dust.
@@ -357,8 +349,7 @@ Keep particle count optimized.
 Particles should enhance atmosphere,
 not distract from the interior.
 
-==================================================
-11. PROJECTS — 3D TRANSITION
+================================================== 11. PROJECTS — 3D TRANSITION
 ==================================================
 
 Projects section should not simply be a grid.
@@ -393,8 +384,7 @@ transition into the project.
 
 Use a cinematic page transition.
 
-==================================================
-12. PROJECT DETAIL — 3D WALKTHROUGH
+================================================== 12. PROJECT DETAIL — 3D WALKTHROUGH
 ==================================================
 
 Project detail page:
@@ -432,8 +422,7 @@ Kitchen
 Bedroom
 Garden
 
-==================================================
-13. 3D OBJECT INTERACTION
+================================================== 13. 3D OBJECT INTERACTION
 ==================================================
 
 Allow users to click objects.
@@ -461,8 +450,7 @@ Use raycasting.
 
 Objects should highlight when hovered.
 
-==================================================
-14. CUSTOM CURSOR
+================================================== 14. CUSTOM CURSOR
 ==================================================
 
 Create custom cursor.
@@ -484,8 +472,7 @@ DRAG
 
 Cursor should smoothly follow mouse.
 
-==================================================
-15. GSAP ANIMATION SYSTEM
+================================================== 15. GSAP ANIMATION SYSTEM
 ==================================================
 
 Use GSAP for:
@@ -505,8 +492,7 @@ Use timelines.
 
 Animations should be smooth and premium.
 
-==================================================
-16. NAVIGATION
+================================================== 16. NAVIGATION
 ==================================================
 
 Minimal transparent navbar.
@@ -527,8 +513,7 @@ On scroll:
 
 transparent → dark glass effect
 
-==================================================
-17. LOADING EXPERIENCE
+================================================== 17. LOADING EXPERIENCE
 ==================================================
 
 Because this website contains heavy 3D assets,
@@ -556,8 +541,7 @@ After loading:
 
 fade into 3D environment.
 
-==================================================
-18. MOBILE
+================================================== 18. MOBILE
 ==================================================
 
 Do NOT remove the 3D experience on mobile.
@@ -592,8 +576,7 @@ tap = hotspot
 
 swipe = navigation
 
-==================================================
-19. PERFORMANCE
+================================================== 19. PERFORMANCE
 ==================================================
 
 This is critical.
@@ -620,8 +603,7 @@ Target:
 60 FPS desktop
 smooth experience mobile
 
-==================================================
-20. ARCHITECTURE
+================================================== 20. ARCHITECTURE
 ==================================================
 
 Create:
@@ -631,50 +613,50 @@ src/
 components/
 
 3d/
-  InteriorScene.vue
-  HouseModel.vue
-  RoomModel.vue
-  Furniture.vue
-  CameraController.vue
-  LightingSystem.vue
-  Hotspots.vue
-  ParticleSystem.vue
+InteriorScene.vue
+HouseModel.vue
+RoomModel.vue
+Furniture.vue
+CameraController.vue
+LightingSystem.vue
+Hotspots.vue
+ParticleSystem.vue
 
 components/
 
-  Navbar.vue
-  Hero.vue
-  LoadingScreen.vue
-  ProjectSection.vue
-  Services.vue
-  MaterialExplorer.vue
-  About.vue
-  Testimonials.vue
-  Contact.vue
-  CustomCursor.vue
+Navbar.vue
+Hero.vue
+LoadingScreen.vue
+ProjectSection.vue
+Services.vue
+MaterialExplorer.vue
+About.vue
+Testimonials.vue
+Contact.vue
+CustomCursor.vue
 
 composables/
 
-  useThreeScene.js
-  useCamera.js
-  useGSAP.js
-  useScrollAnimation.js
-  useDevicePerformance.js
+useThreeScene.js
+useCamera.js
+useGSAP.js
+useScrollAnimation.js
+useDevicePerformance.js
 
 views/
 
-  Home.vue
-  Projects.vue
-  ProjectDetails.vue
-  Experience.vue
-  Contact.vue
+Home.vue
+Projects.vue
+ProjectDetails.vue
+Experience.vue
+Contact.vue
 
 assets/
 
-  models/
-  textures/
-  images/
-  hdri/
+models/
+textures/
+images/
+hdri/
 
 ==================================================
 VISUAL STYLE
@@ -718,18 +700,14 @@ The user should feel:
 
 The website should behave more like:
 
-3D architectural presentation
-+
-interactive game-like exploration
-+
-cinematic portfolio
-+
+3D architectural presentation +
+interactive game-like exploration +
+cinematic portfolio +
 luxury interior design website
 
 NOT:
 
-normal website
-+
+normal website +
 some CSS animations.
 
 Every major section should have a relationship

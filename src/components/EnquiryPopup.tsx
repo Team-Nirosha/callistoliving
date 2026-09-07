@@ -83,7 +83,8 @@ export function EnquiryPopup({ open, onClose }: EnquiryPopupProps) {
               Thank you for reaching out.
             </h2>
             <p className="mt-2.5 max-w-md text-xs sm:text-sm leading-relaxed text-white/75">
-              Our lead interior architect will review your project details and get back to you within 24 hours.
+              Our lead interior architect will review your project details and get back to you
+              within 24 hours.
             </p>
             <button
               type="button"
@@ -97,10 +98,15 @@ export function EnquiryPopup({ open, onClose }: EnquiryPopupProps) {
           <div>
             <div className="flex items-center gap-2 text-gold">
               <Sparkles size={18} strokeWidth={1.5} />
-              <span className="eyebrow text-gold font-semibold tracking-[0.25em]">Callisto Living Studio</span>
+              <span className="eyebrow text-gold font-semibold tracking-[0.25em]">
+                Callisto Living Studio
+              </span>
             </div>
 
-            <h2 id={titleId} className="mt-1.5 font-display text-2xl sm:text-3xl leading-tight text-white">
+            <h2
+              id={titleId}
+              className="mt-1.5 font-display text-2xl sm:text-3xl leading-tight text-white"
+            >
               Begin Your <span className="italic text-gold">Interior Project</span>
             </h2>
             <p className="mt-1.5 text-xs text-white/70">
@@ -121,7 +127,9 @@ export function EnquiryPopup({ open, onClose }: EnquiryPopupProps) {
 
               <div className="grid gap-3.5 sm:grid-cols-2">
                 <div>
-                  <label className="eyebrow text-[10px] text-gold/90 font-medium">Email Address</label>
+                  <label className="eyebrow text-[10px] text-gold/90 font-medium">
+                    Email Address
+                  </label>
                   <input
                     required
                     type="email"
@@ -132,7 +140,9 @@ export function EnquiryPopup({ open, onClose }: EnquiryPopupProps) {
                   />
                 </div>
                 <div>
-                  <label className="eyebrow text-[10px] text-gold/90 font-medium">Phone Number</label>
+                  <label className="eyebrow text-[10px] text-gold/90 font-medium">
+                    Phone Number
+                  </label>
                   <input
                     required
                     type="tel"
@@ -145,24 +155,40 @@ export function EnquiryPopup({ open, onClose }: EnquiryPopupProps) {
               </div>
 
               <div>
-                <label className="eyebrow text-[10px] text-gold/90 font-medium">Estimated Project Budget</label>
+                <label className="eyebrow text-[10px] text-gold/90 font-medium">
+                  Estimated Project Budget
+                </label>
                 <select
                   required
                   value={budget}
                   onChange={(event) => setBudget(event.target.value)}
                   className="mt-1 w-full rounded-t-md border-b border-gold/40 bg-[#1a1713] px-3 py-2 text-sm text-white outline-none transition-all focus:border-gold cursor-pointer"
                 >
-                  <option value="" disabled className="bg-[#1a1713] text-white/50">Select your budget range</option>
-                  <option value="under-5" className="bg-[#1a1713] text-white">Under ₹5 lakh</option>
-                  <option value="5-15" className="bg-[#1a1713] text-white">₹5–15 lakh</option>
-                  <option value="15-30" className="bg-[#1a1713] text-white">₹15–30 lakh</option>
-                  <option value="30-plus" className="bg-[#1a1713] text-white">₹30 lakh+</option>
+                  <option value="" disabled className="bg-[#1a1713] text-white/50">
+                    Select your budget range
+                  </option>
+                  <option value="under-5" className="bg-[#1a1713] text-white">
+                    Under ₹5 lakh
+                  </option>
+                  <option value="5-15" className="bg-[#1a1713] text-white">
+                    ₹5–15 lakh
+                  </option>
+                  <option value="15-30" className="bg-[#1a1713] text-white">
+                    ₹15–30 lakh
+                  </option>
+                  <option value="30-plus" className="bg-[#1a1713] text-white">
+                    ₹30 lakh+
+                  </option>
                 </select>
               </div>
 
               {isLowBudget && (
-                <p role="alert" className="border-l-2 border-gold bg-gold/15 p-2.5 text-xs leading-relaxed text-white/90">
-                  Currently, our bespoke architecture packages start at ₹5 lakh. Select another range or contact us directly.
+                <p
+                  role="alert"
+                  className="border-l-2 border-gold bg-gold/15 p-2.5 text-xs leading-relaxed text-white/90"
+                >
+                  Currently, our bespoke architecture packages start at ₹5 lakh. Select another
+                  range or contact us directly.
                 </p>
               )}
 
@@ -172,7 +198,9 @@ export function EnquiryPopup({ open, onClose }: EnquiryPopupProps) {
                 className="group mt-3 flex w-full items-center justify-between border border-gold bg-gold px-5 py-3 text-xs font-bold uppercase tracking-[0.2em] text-ink transition-all duration-300 hover:bg-white hover:border-white hover:text-black hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] disabled:cursor-not-allowed disabled:bg-stone/50 disabled:text-white/40 cursor-pointer"
               >
                 <span>Send Enquiry</span>
-                <span className="text-base transition-transform duration-300 group-hover:translate-x-1">→</span>
+                <span className="text-base transition-transform duration-300 group-hover:translate-x-1">
+                  →
+                </span>
               </button>
             </form>
           </div>

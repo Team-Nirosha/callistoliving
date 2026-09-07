@@ -46,12 +46,28 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   const [isEnquiryOpen, setIsEnquiryOpen] = useState(false);
+  const [shouldLoad3D, setShouldLoad3D] = useState(false);
+
+  useEffect(() => {
+    // Progressive chunk loading: render the Hero, typography, and navigation immediately without blocking JS
+    if (typeof window === "undefined") return;
+    const loadTimeout = window.setTimeout(() => {
+      if ("requestIdleCallback" in window) {
+        (window as any).requestIdleCallback(() => setShouldLoad3D(true), { timeout: 1500 });
+      } else {
+        setShouldLoad3D(true);
+      }
+    }, 150);
+
+    return () => window.clearTimeout(loadTimeout);
+  }, []);
 
   useEffect(() => {
     if (typeof window !== "undefined" && sessionStorage.getItem("enquiry_popup_dismissed")) {
       return;
     }
-    const timer = window.setTimeout(() => setIsEnquiryOpen(true), 500);
+    // Defer enquiry popup so it doesn't interrupt or lag the initial landing experience
+    const timer = window.setTimeout(() => setIsEnquiryOpen(true), 15000);
     return () => window.clearTimeout(timer);
   }, []);
 
@@ -60,12 +76,16 @@ function Home() {
   }, []);
 
   return (
-    <div className="relative bg-ink">
+    <div className="relative bg-ink overflow-x-hidden w-full max-w-[100vw]">
       <CustomCursor />
       <Navbar onEnquire={() => setIsEnquiryOpen(true)} />
-      <Suspense fallback={null}>
-        <Scene />
-      </Suspense>
+      {shouldLoad3D ? (
+        <Suspense fallback={<div className="fixed inset-0 z-0 bg-ink" />}>
+          <Scene />
+        </Suspense>
+      ) : (
+        <div className="fixed inset-0 z-0 bg-ink" />
+      )}
 
       <div className="pointer-events-none fixed bottom-8 right-6 z-[75] md:right-12">
         <DayNightToggle />
@@ -73,7 +93,7 @@ function Home() {
       <ObjectPanel />
       <EnquiryPopup open={isEnquiryOpen} onClose={() => setIsEnquiryOpen(false)} />
 
-      <main className="relative z-10">
+      <main className="relative z-10 overflow-x-hidden w-full max-w-[100vw]">
         <Hero onEnquire={() => setIsEnquiryOpen(true)} />
         <Journey onProgress={onProgress} />
         <RoomPlanner onEnquire={() => setIsEnquiryOpen(true)} />

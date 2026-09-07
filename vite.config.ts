@@ -12,4 +12,28 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  vite: {
+    build: {
+      // Raise the chunk size warning threshold — we have intentionally large 3D chunks
+      chunkSizeWarningLimit: 1000,
+      rollupOptions: {
+        output: {
+          manualChunks(id: string) {
+            // Keep Three.js + r3f in a dedicated lazy chunk (already lazy-loaded via Scene)
+            if (id.includes("node_modules/three/")) return "three";
+            if (
+              id.includes("node_modules/@react-three/fiber/") ||
+              id.includes("node_modules/@react-three/drei/")
+            )
+              return "r3f";
+            // Keep gsap in its own chunk — loaded only by Sections.tsx
+            if (id.includes("node_modules/gsap/")) return "gsap";
+            // Keep lucide icons in their own chunk
+            if (id.includes("node_modules/lucide-react/")) return "lucide";
+          },
+        },
+      },
+    },
+  },
 });
+

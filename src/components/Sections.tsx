@@ -3,10 +3,10 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef, useState } from "react";
 import { Armchair, BedDouble, ChevronDown, CookingPot, Monitor, Star } from "lucide-react";
-import apartment from "@/assets/project-apartment.jpg";
-import blackHouse from "@/assets/project-black-house.jpg";
-import minimal from "@/assets/project-minimal.jpg";
-import villa from "@/assets/project-villa.jpg";
+import apartment from "@/assets/project-apartment.webp";
+import blackHouse from "@/assets/project-black-house.webp";
+import minimal from "@/assets/project-minimal.webp";
+import villa from "@/assets/project-villa.webp";
 import { PROJECTS } from "@/lib/projects";
 import { setState } from "@/lib/store";
 import { MaterialExplorer } from "./SceneControls";
@@ -38,11 +38,16 @@ export function Hero({ onEnquire }: { onEnquire: () => void }) {
   }, []);
 
   return (
-    <section ref={root} className="relative isolate z-[60] flex min-h-screen items-center py-20 md:py-0">
+    <section
+      ref={root}
+      className="relative isolate z-[60] flex min-h-screen items-center py-20 md:py-0"
+    >
       <div className="hero-content relative z-[80] mx-auto w-full max-w-[1600px] px-6 md:px-12">
         <div className="hero-eyebrow inline-flex items-center gap-3 rounded-full border border-gold/30 bg-gold/10 px-4 py-1.5 backdrop-blur-md">
           <span className="h-2 w-2 rounded-full bg-gold animate-ping" />
-          <span className="eyebrow text-gold font-medium tracking-[0.25em]">Premium Interior Design Studio</span>
+          <span className="eyebrow text-gold font-medium tracking-[0.25em]">
+            Premium Interior Design Studio
+          </span>
         </div>
 
         <h1 className="mt-6 max-w-5xl font-display text-[3.2rem] leading-[0.95] text-sand md:text-[6rem] lg:text-[7rem]">
@@ -52,7 +57,8 @@ export function Hero({ onEnquire }: { onEnquire: () => void }) {
         </h1>
 
         <p className="hero-sub mt-8 max-w-xl text-base md:text-lg leading-relaxed text-sand/80">
-          We create timeless luxury interiors where architecture, bespoke craftsmanship, and emotional elegance unite seamlessly.
+          We create timeless luxury interiors where architecture, bespoke craftsmanship, and
+          emotional elegance unite seamlessly.
         </p>
 
         <div className="relative z-[100] mt-10 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-4">
@@ -63,7 +69,10 @@ export function Hero({ onEnquire }: { onEnquire: () => void }) {
             className="hero-cta group relative z-[110] inline-flex w-full sm:w-auto items-center justify-center border-2 border-gold bg-gold px-8 py-4 text-xs md:text-sm font-semibold uppercase tracking-[0.2em] text-ink shadow-[0_0_30px_rgba(212,175,55,0.45)] transition-all duration-300 hover:-translate-y-1 hover:border-sand hover:bg-sand hover:shadow-[0_0_40px_rgba(255,255,255,0.6)] cursor-pointer text-center"
           >
             <span className="relative z-10 flex items-center justify-center gap-2">
-              Take Enquiry <span className="text-base transition-transform duration-300 group-hover:translate-x-1">→</span>
+              Take Enquiry{" "}
+              <span className="text-base transition-transform duration-300 group-hover:translate-x-1">
+                →
+              </span>
             </span>
           </button>
 
@@ -94,7 +103,12 @@ export function Hero({ onEnquire }: { onEnquire: () => void }) {
 }
 
 const JOURNEY = [
-  { name: "Living Room", material: "Italian Marble", style: "Contemporary Luxury", area: "620 sq.ft." },
+  {
+    name: "Living Room",
+    material: "Italian Marble",
+    style: "Contemporary Luxury",
+    area: "620 sq.ft.",
+  },
   { name: "Dining Room", material: "Smoked Oak", style: "Sculptural Modern", area: "340 sq.ft." },
   { name: "Kitchen", material: "Calacatta & Brass", style: "Minimal Utility", area: "280 sq.ft." },
   { name: "Bedroom", material: "Belgian Linen", style: "Soft Brutalist", area: "410 sq.ft." },
@@ -105,6 +119,7 @@ const JOURNEY = [
 export function Journey({ onProgress }: { onProgress: (p: number) => void }) {
   const root = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
+  const lastIndex = useRef(0);
 
   useEffect(() => {
     const el = root.current;
@@ -116,7 +131,14 @@ export function Journey({ onProgress }: { onProgress: (p: number) => void }) {
       scrub: true,
       onUpdate: (self) => {
         onProgress(self.progress);
-        setIndex(Math.min(JOURNEY.length - 1, Math.round(self.progress * (JOURNEY.length - 1))));
+        const newIndex = Math.min(
+          JOURNEY.length - 1,
+          Math.round(self.progress * (JOURNEY.length - 1)),
+        );
+        if (newIndex !== lastIndex.current) {
+          lastIndex.current = newIndex;
+          setIndex(newIndex);
+        }
       },
     });
     return () => st.kill();
@@ -179,7 +201,8 @@ const ROOM_COLLECTIONS = [
     Icon: Armchair,
     area: "620 sq.ft.",
     materials: ["Calacatta Marble", "Brushed Brass", "Smoked Walnut"],
-    quote: "Sculptural seating paired with custom architectural lighting, tailored for effortless hosting and serene evenings.",
+    quote:
+      "Sculptural seating paired with custom architectural lighting, tailored for effortless hosting and serene evenings.",
     specs: [
       { title: "Lighting System", desc: "Linear LED cove & recessed dark light spots" },
       { title: "Custom Joinery", desc: "Smoked walnut paneling & floating media console" },
@@ -194,7 +217,8 @@ const ROOM_COLLECTIONS = [
     Icon: BedDouble,
     area: "410 sq.ft.",
     materials: ["Belgian Linen", "Smoked Oak", "Fluted Glass"],
-    quote: "A quiet private retreat balancing raw textures with warm ambient tones, creating a sanctuary of restful luxury.",
+    quote:
+      "A quiet private retreat balancing raw textures with warm ambient tones, creating a sanctuary of restful luxury.",
     specs: [
       { title: "Acoustic Layer", desc: "Sound-dampening wool fabric wall wrapping" },
       { title: "Built-in Suite", desc: "Walk-in dressing joinery with brass trims" },
@@ -209,7 +233,8 @@ const ROOM_COLLECTIONS = [
     Icon: Monitor,
     area: "340 sq.ft.",
     materials: ["Basalt Stone", "Bronze Mirror", "Textured Velvet"],
-    quote: "Sleek wall integration housing state-of-the-art media with concealed wine storage and bronze reflective accents.",
+    quote:
+      "Sleek wall integration housing state-of-the-art media with concealed wine storage and bronze reflective accents.",
     specs: [
       { title: "Acoustic Joinery", desc: "Concealed speaker baffles & velvet panels" },
       { title: "Beverage Bar", desc: "Integrated bronze glass climate cabinet" },
@@ -224,7 +249,8 @@ const ROOM_COLLECTIONS = [
     Icon: CookingPot,
     area: "280 sq.ft.",
     materials: ["Travertine Slab", "Patinated Metal", "Oak Shaker"],
-    quote: "Seamless waterfall islands and hidden pantry doors where culinary functionality meets monolithic marble architecture.",
+    quote:
+      "Seamless waterfall islands and hidden pantry doors where culinary functionality meets monolithic marble architecture.",
     specs: [
       { title: "Centerpiece Island", desc: "Hand-honed Travertine waterfall counter" },
       { title: "Cabinetry Atelier", desc: "Full-height pocket doors with brass handles" },
@@ -238,20 +264,26 @@ export function RoomPlanner({ onEnquire }: { onEnquire?: () => void }) {
   const active = ROOM_COLLECTIONS.find((room) => room.id === activeId) ?? ROOM_COLLECTIONS[0];
 
   return (
-    <section id="interiors" className="relative border-t border-sand/15 bg-ink py-28 overflow-hidden">
+    <section
+      id="interiors"
+      className="relative border-t border-sand/15 bg-ink py-28 overflow-hidden"
+    >
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-gold/5 blur-[120px] pointer-events-none rounded-full" />
 
       <div className="relative mx-auto max-w-[1600px] px-6 md:px-12">
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <p className="eyebrow text-gold font-medium tracking-[0.25em]">02 — Spatial Atelier</p>
+              <p className="eyebrow text-gold font-medium tracking-[0.25em]">
+                02 — Spatial Atelier
+              </p>
               <h2 className="mt-4 max-w-3xl font-display text-4xl leading-tight text-sand md:text-6xl lg:text-7xl">
                 Interior spaces, crafted to <span className="italic text-gold">perfection.</span>
               </h2>
             </div>
             <p className="max-w-md text-sm md:text-base leading-relaxed text-sand/70">
-              Select a room below to experience our material selections, architectural joinery, and tailored design philosophy.
+              Select a room below to experience our material selections, architectural joinery, and
+              tailored design philosophy.
             </p>
           </div>
         </Reveal>
@@ -273,8 +305,14 @@ export function RoomPlanner({ onEnquire }: { onEnquire?: () => void }) {
                     : "border-sand/20 bg-bone/5 text-sand/70 hover:border-gold/60 hover:text-sand"
                 }`}
               >
-                <Icon size={18} strokeWidth={selected ? 2 : 1.5} className={selected ? "text-gold" : "text-sand/50 group-hover:text-gold"} />
-                <span className="text-xs md:text-sm font-semibold tracking-[0.16em] uppercase">{room.label}</span>
+                <Icon
+                  size={18}
+                  strokeWidth={selected ? 2 : 1.5}
+                  className={selected ? "text-gold" : "text-sand/50 group-hover:text-gold"}
+                />
+                <span className="text-xs md:text-sm font-semibold tracking-[0.16em] uppercase">
+                  {room.label}
+                </span>
                 {selected && <span className="h-1.5 w-1.5 rounded-full bg-gold animate-pulse" />}
               </button>
             );
@@ -334,8 +372,12 @@ export function RoomPlanner({ onEnquire }: { onEnquire?: () => void }) {
                   <div key={spec.title} className="flex items-start gap-4">
                     <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-gold" />
                     <div>
-                      <h4 className="text-xs uppercase tracking-[0.18em] font-semibold text-sand">{spec.title}</h4>
-                      <p className="mt-1 text-xs md:text-sm text-sand/70 leading-relaxed">{spec.desc}</p>
+                      <h4 className="text-xs uppercase tracking-[0.18em] font-semibold text-sand">
+                        {spec.title}
+                      </h4>
+                      <p className="mt-1 text-xs md:text-sm text-sand/70 leading-relaxed">
+                        {spec.desc}
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -375,7 +417,9 @@ export function RoomPlanner({ onEnquire }: { onEnquire?: () => void }) {
                 type="button"
                 onClick={() => setActiveId(room.id)}
                 className={`group relative overflow-hidden border p-4 text-left transition-all duration-300 cursor-pointer ${
-                  isSelected ? "border-gold bg-gold/10" : "border-sand/15 bg-bone/5 hover:border-gold/50"
+                  isSelected
+                    ? "border-gold bg-gold/10"
+                    : "border-sand/15 bg-bone/5 hover:border-gold/50"
                 }`}
               >
                 <div className="aspect-[4/3] w-full overflow-hidden mb-3">
@@ -441,9 +485,18 @@ export function MaterialSection() {
 }
 
 const SERVICES = [
-  ["Interior Architecture", "Spatial planning, volumes, joinery and light design from first sketch to handover."],
-  ["Turnkey Residences", "Full execution with our atelier of makers — stone, metal, cabinetry, textiles."],
-  ["Furniture Curation", "Bespoke and collectible pieces sourced and commissioned for each residence."],
+  [
+    "Interior Architecture",
+    "Spatial planning, volumes, joinery and light design from first sketch to handover.",
+  ],
+  [
+    "Turnkey Residences",
+    "Full execution with our atelier of makers — stone, metal, cabinetry, textiles.",
+  ],
+  [
+    "Furniture Curation",
+    "Bespoke and collectible pieces sourced and commissioned for each residence.",
+  ],
   ["Art & Styling", "Commissioned artwork, objects and the final layer that makes a house yours."],
 ];
 
@@ -592,10 +645,34 @@ export function About() {
 }
 
 const GOOGLE_REVIEWS = [
-  { quote: "They understood the light in our house before they understood us. Everything followed from that.", name: "A. Mehta", location: "Alibaug", project: "Villa renovation" },
-  { quote: "The only studio we've worked with that draws joinery and books the stone in the same week.", name: "L. Sørensen", location: "Copenhagen", project: "City residence" },
-  { quote: "Every corner feels calm, personal and exceptionally well made. The execution was as thoughtful as the design.", name: "R. Khanna", location: "Mumbai", project: "Apartment interior" },
-  { quote: "They made every decision feel effortless and transformed an ordinary apartment into a home with real character.", name: "N. Shah", location: "New Delhi", project: "Penthouse interior" },
+  {
+    quote:
+      "They understood the light in our house before they understood us. Everything followed from that.",
+    name: "A. Mehta",
+    location: "Alibaug",
+    project: "Villa renovation",
+  },
+  {
+    quote:
+      "The only studio we've worked with that draws joinery and books the stone in the same week.",
+    name: "L. Sørensen",
+    location: "Copenhagen",
+    project: "City residence",
+  },
+  {
+    quote:
+      "Every corner feels calm, personal and exceptionally well made. The execution was as thoughtful as the design.",
+    name: "R. Khanna",
+    location: "Mumbai",
+    project: "Apartment interior",
+  },
+  {
+    quote:
+      "They made every decision feel effortless and transformed an ordinary apartment into a home with real character.",
+    name: "N. Shah",
+    location: "New Delhi",
+    project: "Penthouse interior",
+  },
 ];
 
 export function TestimonialsLegacy() {
@@ -627,16 +704,26 @@ export function TestimonialsLegacy() {
       <div className="mx-auto grid max-w-[1600px] items-center gap-12 px-6 md:grid-cols-[0.8fr_1.2fr] md:gap-24 md:px-12">
         <Reveal>
           <div className="flex items-center gap-3">
-            <span className="grid h-8 w-8 place-items-center rounded-full bg-white font-sans text-sm font-semibold text-[#4285F4]">G</span>
+            <span className="grid h-8 w-8 place-items-center rounded-full bg-white font-sans text-sm font-semibold text-[#4285F4]">
+              G
+            </span>
             <p className="eyebrow">Google reviews</p>
           </div>
-          <h2 className="mt-6 max-w-md font-display text-5xl leading-[0.95] text-sand md:text-7xl">Homes made to be <span className="italic text-gold">felt.</span></h2>
+          <h2 className="mt-6 max-w-md font-display text-5xl leading-[0.95] text-sand md:text-7xl">
+            Homes made to be <span className="italic text-gold">felt.</span>
+          </h2>
           <div className="mt-8 flex items-center gap-4">
-            <div className="flex gap-1 text-gold" aria-label="Five out of five stars">{Array.from({ length: 5 }, (_, index) => <Star key={index} size={16} fill="currentColor" />)}</div>
+            <div className="flex gap-1 text-gold" aria-label="Five out of five stars">
+              {Array.from({ length: 5 }, (_, index) => (
+                <Star key={index} size={16} fill="currentColor" />
+              ))}
+            </div>
             <span className="font-display text-2xl text-sand">5.0</span>
             <span className="text-xs text-sand/55">Client satisfaction</span>
           </div>
-          <p className="mt-7 max-w-sm text-sm leading-relaxed text-sand/60">The kind words from clients who trusted us with the spaces that matter most.</p>
+          <p className="mt-7 max-w-sm text-sm leading-relaxed text-sand/60">
+            The kind words from clients who trusted us with the spaces that matter most.
+          </p>
         </Reveal>
 
         <div className="relative h-[440px] overflow-hidden md:h-[500px]">
@@ -644,13 +731,30 @@ export function TestimonialsLegacy() {
           <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-24 bg-gradient-to-t from-ink to-transparent" />
           <div ref={track} className="space-y-5 pb-5">
             {[...GOOGLE_REVIEWS, ...GOOGLE_REVIEWS].map((review, index) => (
-              <article key={`${review.name}-${index}`} aria-hidden={index >= GOOGLE_REVIEWS.length} className="border border-sand/15 bg-bone/10 p-6 transition-colors duration-300 hover:border-gold/60 md:p-8">
+              <article
+                key={`${review.name}-${index}`}
+                aria-hidden={index >= GOOGLE_REVIEWS.length}
+                className="border border-sand/15 bg-bone/10 p-6 transition-colors duration-300 hover:border-gold/60 md:p-8"
+              >
                 <div className="flex items-start justify-between gap-5">
-                  <div><p className="font-display text-2xl text-sand">{review.name}</p><p className="mt-1 text-[10px] uppercase tracking-[0.2em] text-sand/45">{review.location} · {review.project}</p></div>
-                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white font-sans text-sm font-semibold text-[#4285F4]">G</span>
+                  <div>
+                    <p className="font-display text-2xl text-sand">{review.name}</p>
+                    <p className="mt-1 text-[10px] uppercase tracking-[0.2em] text-sand/45">
+                      {review.location} · {review.project}
+                    </p>
+                  </div>
+                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white font-sans text-sm font-semibold text-[#4285F4]">
+                    G
+                  </span>
                 </div>
-                <div className="mt-6 flex gap-1 text-gold" aria-label="Five out of five stars">{Array.from({ length: 5 }, (_, starIndex) => <Star key={starIndex} size={13} fill="currentColor" />)}</div>
-                <p className="mt-5 font-display text-xl italic leading-relaxed text-sand/90 md:text-2xl">“{review.quote}”</p>
+                <div className="mt-6 flex gap-1 text-gold" aria-label="Five out of five stars">
+                  {Array.from({ length: 5 }, (_, starIndex) => (
+                    <Star key={starIndex} size={13} fill="currentColor" />
+                  ))}
+                </div>
+                <p className="mt-5 font-display text-xl italic leading-relaxed text-sand/90 md:text-2xl">
+                  “{review.quote}”
+                </p>
               </article>
             ))}
           </div>
@@ -667,7 +771,8 @@ export function TestimonialsTimeline() {
   useEffect(() => {
     const section = root.current;
     const carousel = track.current;
-    if (!section || !carousel || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!section || !carousel || window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+      return;
 
     const ctx = gsap.context(() => {
       gsap.to(carousel, {
@@ -687,13 +792,19 @@ export function TestimonialsTimeline() {
   }, []);
 
   return (
-    <section ref={root} id="reviews" className="relative h-[180vh] overflow-hidden bg-ink md:h-[190vh]">
+    <section
+      ref={root}
+      id="reviews"
+      className="relative h-[180vh] overflow-hidden bg-ink md:h-[190vh]"
+    >
       <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden py-14">
         <div className="mx-auto w-full max-w-[1600px] px-6 md:px-12">
           <div className="flex flex-wrap items-end justify-between gap-8">
             <div>
               <div className="flex items-center gap-3">
-                <span className="grid h-8 w-8 place-items-center rounded-full bg-white font-sans text-sm font-semibold text-[#4285F4]">G</span>
+                <span className="grid h-8 w-8 place-items-center rounded-full bg-white font-sans text-sm font-semibold text-[#4285F4]">
+                  G
+                </span>
                 <p className="eyebrow">Google reviews</p>
               </div>
               <h2 className="mt-5 max-w-2xl font-display text-5xl leading-[0.95] text-sand md:text-7xl">
@@ -702,7 +813,9 @@ export function TestimonialsTimeline() {
             </div>
             <div className="flex items-center gap-3 border-l border-gold/50 pl-4">
               <div className="flex gap-1 text-gold" aria-label="Five out of five stars">
-                {Array.from({ length: 5 }, (_, index) => <Star key={index} size={14} fill="currentColor" />)}
+                {Array.from({ length: 5 }, (_, index) => (
+                  <Star key={index} size={14} fill="currentColor" />
+                ))}
               </div>
               <span className="font-display text-2xl text-sand">5.0</span>
               <span className="text-xs text-sand/55">Client satisfaction</span>
@@ -713,21 +826,35 @@ export function TestimonialsTimeline() {
           Scroll to explore our client stories
         </p>
 
-        <div ref={track} className="mt-6 flex w-max gap-5 pl-6 will-change-transform md:mt-8 md:gap-7 md:pl-12">
+        <div
+          ref={track}
+          className="mt-6 flex w-max gap-5 pl-6 will-change-transform md:mt-8 md:gap-7 md:pl-12"
+        >
           {GOOGLE_REVIEWS.map((review) => (
-            <article key={review.name} className="flex h-[310px] w-[82vw] max-w-[490px] flex-col justify-between border border-sand/15 bg-bone/10 p-6 transition-colors duration-300 hover:border-gold/60 md:h-[350px] md:w-[440px] md:p-8">
+            <article
+              key={review.name}
+              className="flex h-[310px] w-[82vw] max-w-[490px] flex-col justify-between border border-sand/15 bg-bone/10 p-6 transition-colors duration-300 hover:border-gold/60 md:h-[350px] md:w-[440px] md:p-8"
+            >
               <div>
                 <div className="flex items-start justify-between gap-5">
                   <div>
                     <p className="font-display text-2xl text-sand">{review.name}</p>
-                    <p className="mt-1 text-[10px] uppercase tracking-[0.2em] text-sand/45">{review.location} · {review.project}</p>
+                    <p className="mt-1 text-[10px] uppercase tracking-[0.2em] text-sand/45">
+                      {review.location} · {review.project}
+                    </p>
                   </div>
-                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white font-sans text-sm font-semibold text-[#4285F4]">G</span>
+                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white font-sans text-sm font-semibold text-[#4285F4]">
+                    G
+                  </span>
                 </div>
                 <div className="mt-7 flex gap-1 text-gold" aria-label="Five out of five stars">
-                  {Array.from({ length: 5 }, (_, index) => <Star key={index} size={13} fill="currentColor" />)}
+                  {Array.from({ length: 5 }, (_, index) => (
+                    <Star key={index} size={13} fill="currentColor" />
+                  ))}
                 </div>
-                <p className="mt-5 font-display text-xl italic leading-relaxed text-sand/90 md:text-2xl">“{review.quote}”</p>
+                <p className="mt-5 font-display text-xl italic leading-relaxed text-sand/90 md:text-2xl">
+                  “{review.quote}”
+                </p>
               </div>
               <p className="eyebrow text-gold/80">Verified client review</p>
             </article>
@@ -766,13 +893,21 @@ export function Testimonials() {
       <div className="mx-auto flex max-w-[1600px] flex-wrap items-end justify-between gap-7 px-6 md:px-12">
         <div>
           <div className="flex items-center gap-3">
-            <span className="grid h-8 w-8 place-items-center rounded-full bg-white font-sans text-sm font-semibold text-[#4285F4]">G</span>
+            <span className="grid h-8 w-8 place-items-center rounded-full bg-white font-sans text-sm font-semibold text-[#4285F4]">
+              G
+            </span>
             <p className="eyebrow">Google reviews</p>
           </div>
-          <h2 className="mt-5 font-display text-5xl leading-[0.95] text-sand md:text-6xl">Homes made to be <span className="italic text-gold">felt.</span></h2>
+          <h2 className="mt-5 font-display text-5xl leading-[0.95] text-sand md:text-6xl">
+            Homes made to be <span className="italic text-gold">felt.</span>
+          </h2>
         </div>
         <div className="flex items-center gap-3 border-l border-gold/50 pl-4">
-          <div className="flex gap-1 text-gold" aria-label="Five out of five stars">{Array.from({ length: 5 }, (_, index) => <Star key={index} size={14} fill="currentColor" />)}</div>
+          <div className="flex gap-1 text-gold" aria-label="Five out of five stars">
+            {Array.from({ length: 5 }, (_, index) => (
+              <Star key={index} size={14} fill="currentColor" />
+            ))}
+          </div>
           <span className="font-display text-2xl text-sand">5.0</span>
           <span className="text-xs text-sand/55">Client satisfaction</span>
         </div>
@@ -781,14 +916,31 @@ export function Testimonials() {
       <div className="mt-10 overflow-hidden">
         <div ref={track} className="flex w-max gap-5 pl-6 will-change-transform md:gap-7 md:pl-12">
           {[...GOOGLE_REVIEWS, ...GOOGLE_REVIEWS].map((review, index) => (
-            <article key={`${review.name}-${index}`} aria-hidden={index >= GOOGLE_REVIEWS.length} className="flex h-[290px] w-[80vw] max-w-[440px] flex-col justify-between border border-sand/15 bg-bone/10 p-6 transition-colors duration-300 hover:border-gold/60 md:h-[315px] md:w-[410px] md:p-7">
+            <article
+              key={`${review.name}-${index}`}
+              aria-hidden={index >= GOOGLE_REVIEWS.length}
+              className="flex h-[290px] w-[80vw] max-w-[440px] flex-col justify-between border border-sand/15 bg-bone/10 p-6 transition-colors duration-300 hover:border-gold/60 md:h-[315px] md:w-[410px] md:p-7"
+            >
               <div>
                 <div className="flex items-start justify-between gap-5">
-                  <div><p className="font-display text-2xl text-sand">{review.name}</p><p className="mt-1 text-[10px] uppercase tracking-[0.2em] text-sand/45">{review.location} · {review.project}</p></div>
-                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white font-sans text-sm font-semibold text-[#4285F4]">G</span>
+                  <div>
+                    <p className="font-display text-2xl text-sand">{review.name}</p>
+                    <p className="mt-1 text-[10px] uppercase tracking-[0.2em] text-sand/45">
+                      {review.location} · {review.project}
+                    </p>
+                  </div>
+                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white font-sans text-sm font-semibold text-[#4285F4]">
+                    G
+                  </span>
                 </div>
-                <div className="mt-6 flex gap-1 text-gold" aria-label="Five out of five stars">{Array.from({ length: 5 }, (_, starIndex) => <Star key={starIndex} size={13} fill="currentColor" />)}</div>
-                <p className="mt-5 font-display text-xl italic leading-relaxed text-sand/90">“{review.quote}”</p>
+                <div className="mt-6 flex gap-1 text-gold" aria-label="Five out of five stars">
+                  {Array.from({ length: 5 }, (_, starIndex) => (
+                    <Star key={starIndex} size={13} fill="currentColor" />
+                  ))}
+                </div>
+                <p className="mt-5 font-display text-xl italic leading-relaxed text-sand/90">
+                  “{review.quote}”
+                </p>
               </div>
               <p className="eyebrow text-gold/80">Verified client review</p>
             </article>
@@ -849,15 +1001,23 @@ export function FAQ() {
                   onClick={() => setOpenIndex(isOpen ? -1 : index)}
                   className="group flex w-full items-center justify-between gap-6 py-6 text-left md:py-7"
                 >
-                  <span className={`font-display text-2xl leading-tight transition-colors md:text-3xl ${isOpen ? "text-gold" : "text-sand group-hover:text-gold"}`}>
+                  <span
+                    className={`font-display text-2xl leading-tight transition-colors md:text-3xl ${isOpen ? "text-gold" : "text-sand group-hover:text-gold"}`}
+                  >
                     {faq.question}
                   </span>
-                  <span className={`grid h-8 w-8 shrink-0 place-items-center border transition ${isOpen ? "rotate-180 border-gold bg-gold text-ink" : "border-sand/25 text-sand group-hover:border-gold group-hover:text-gold"}`}>
+                  <span
+                    className={`grid h-8 w-8 shrink-0 place-items-center border transition ${isOpen ? "rotate-180 border-gold bg-gold text-ink" : "border-sand/25 text-sand group-hover:border-gold group-hover:text-gold"}`}
+                  >
                     <ChevronDown size={16} strokeWidth={1.5} />
                   </span>
                 </button>
-                <div className={`grid transition-[grid-template-rows,opacity] duration-500 ease-out ${isOpen ? "grid-rows-[1fr] pb-6 opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
-                  <p className="overflow-hidden max-w-2xl text-sm leading-relaxed text-sand/65">{faq.answer}</p>
+                <div
+                  className={`grid transition-[grid-template-rows,opacity] duration-500 ease-out ${isOpen ? "grid-rows-[1fr] pb-6 opacity-100" : "grid-rows-[0fr] opacity-0"}`}
+                >
+                  <p className="overflow-hidden max-w-2xl text-sm leading-relaxed text-sand/65">
+                    {faq.answer}
+                  </p>
                 </div>
               </div>
             );
@@ -902,7 +1062,9 @@ export function Contact() {
           </div>
         </Reveal>
         <div className="mt-24 flex flex-wrap items-center justify-between gap-4 border-t border-sand/10 pt-8">
-          <span className="font-display text-lg tracking-[0.3em] text-sand/70">CALLISTO LIVING</span>
+          <span className="font-display text-lg tracking-[0.3em] text-sand/70">
+            CALLISTO LIVING
+          </span>
           <span className="text-[10px] uppercase tracking-[0.28em] text-sand/35">
             © {new Date().getFullYear()} — Interior Architecture
           </span>

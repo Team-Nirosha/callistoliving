@@ -1,5 +1,5 @@
 import { Canvas } from "@react-three/fiber";
-import { AdaptiveDpr, Environment, Lightformer, Preload } from "@react-three/drei";
+import { AdaptiveDpr } from "@react-three/drei";
 import { Suspense, useEffect } from "react";
 import * as THREE from "three";
 import { frame, setState } from "@/lib/store";
@@ -22,48 +22,52 @@ function PointerTracker() {
   return null;
 }
 
+/** Lightweight IBL substitute: 3 hemisphere lights cover warm/cool sky + fill */
+function AmbientEnvironment() {
+  return (
+    <>
+      {/* Warm overhead sky — mimics the top Lightformer */}
+      <hemisphereLight args={["#fff0da", "#2a2218", 1.4]} position={[0, 6, 2]} />
+      {/* Cool-blue side fill — mimics the lateral Lightformer */}
+      <hemisphereLight args={["#9fb6d6", "#1a1e28", 0.7]} position={[10, 2, 9]} />
+    </>
+  );
+}
+
 export function Scene() {
   const q = useQuality();
 
-  useEffect(() => {
-    const t = setTimeout(() => setState({ loaded: true }), 2600);
-    return () => clearTimeout(t);
-  }, []);
-
   return (
-    <div className="fixed inset-0 z-0">
+    <div className="fixed inset-0 z-0 transition-opacity duration-700">
       <PointerTracker />
       <Canvas
         shadows={q.shadows}
         dpr={q.dpr}
-        gl={{ antialias: q.tier !== "low", powerPreference: "high-performance" }}
+        gl={{
+          antialias: q.tier !== "low",
+          powerPreference: "high-performance",
+          stencil: false,
+          depth: true,
+        }}
         camera={{ position: [-11, 1.6, 9], fov: 42, near: 0.1, far: 400 }}
         onCreated={({ gl, scene }) => {
           gl.toneMapping = THREE.ACESFilmicToneMapping;
           gl.toneMappingExposure = 1.06;
           scene.fog = new THREE.Fog("#ded2bc", 34, 150);
+          setState({ loaded: true });
         }}
       >
         <Suspense fallback={null}>
           <Lighting />
-          <Environment resolution={128}>
-            <Lightformer intensity={1.4} position={[0, 6, 2]} scale={[14, 8, 1]} color="#fff0da" />
-            <Lightformer
-              intensity={0.7}
-              color="#9fb6d6"
-              position={[10, 2, 9]}
-              rotation-y={Math.PI / 2}
-              scale={[24, 6, 1]}
-            />
-          </Environment>
+          <AmbientEnvironment />
           <Interior />
           <Hotspots />
           <Particles count={q.particles} />
           <CameraRig />
           <AdaptiveDpr pixelated={false} />
-          <Preload all />
         </Suspense>
       </Canvas>
     </div>
   );
 }
+

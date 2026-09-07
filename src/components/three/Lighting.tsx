@@ -8,8 +8,11 @@ export function Lighting() {
   const sun = useRef<THREE.DirectionalLight>(null);
   const amb = useRef<THREE.AmbientLight>(null);
   const fill = useRef<THREE.HemisphereLight>(null);
-  const spot = useRef<THREE.SpotLight>(null);
-  const bg = useRef<THREE.Color>(new THREE.Color("#0a0908"));
+  const dayColor = useRef(new THREE.Color("#ded2bc"));
+  const nightColor = useRef(new THREE.Color("#06060a"));
+  const tempColor = useRef(new THREE.Color());
+  const sunDayColor = useRef(new THREE.Color("#ffe6c2"));
+  const sunNightColor = useRef(new THREE.Color("#8fa6c6"));
   const boot = useRef(0);
 
   useFrame((state, delta) => {
@@ -22,20 +25,15 @@ export function Lighting() {
 
     if (sun.current) {
       sun.current.intensity = THREE.MathUtils.lerp(2.6, 0.18, n) * rise;
-      sun.current.color.set(n > 0.5 ? "#8fa6c6" : "#ffe6c2");
+      sun.current.color.copy(n > 0.5 ? sunNightColor.current : sunDayColor.current);
       sun.current.position.set(-26 + n * 40, 16 - n * 6, 24);
     }
     if (amb.current) amb.current.intensity = THREE.MathUtils.lerp(0.75, 0.16, n) * rise;
     if (fill.current) fill.current.intensity = THREE.MathUtils.lerp(0.7, 0.22, n) * rise;
-    if (spot.current) spot.current.intensity = THREE.MathUtils.lerp(12, 34, n) * rise;
 
-    bg.current.set(n > 0.5 ? "#07070a" : "#c8bda9").lerp(
-      new THREE.Color(n > 0.5 ? "#07070a" : "#c8bda9"),
-      1,
-    );
-    const c = new THREE.Color("#ded2bc").lerp(new THREE.Color("#06060a"), n);
-    state.scene.background = c;
-    if (state.scene.fog) (state.scene.fog as THREE.Fog).color.copy(c);
+    tempColor.current.copy(dayColor.current).lerp(nightColor.current, n);
+    state.scene.background = tempColor.current;
+    if (state.scene.fog) (state.scene.fog as THREE.Fog).color.copy(tempColor.current);
   });
 
   return (
@@ -48,8 +46,8 @@ export function Lighting() {
         intensity={2.4}
         color="#ffe6c2"
         castShadow
-        shadow-mapSize-width={2048}
-        shadow-mapSize-height={2048}
+        shadow-mapSize-width={512}
+        shadow-mapSize-height={512}
         shadow-camera-left={-40}
         shadow-camera-right={90}
         shadow-camera-top={30}
@@ -57,19 +55,10 @@ export function Lighting() {
         shadow-camera-far={140}
         shadow-bias={-0.0006}
       />
-      <spotLight
-        ref={spot}
-        position={[0, 4.4, 2]}
-        target-position={[0, 0, -3]}
-        angle={0.7}
-        penumbra={0.9}
-        distance={18}
-        color="#ffd9ab"
-        castShadow
-        shadow-bias={-0.001}
-      />
+      {/* Warm bedroom + balcony fill lights — no shadows needed */}
       <pointLight position={[45, 2.2, 1]} color="#ffcf9c" intensity={8} distance={12} />
       <pointLight position={[60, 2.6, 6]} color="#a9c4e6" intensity={6} distance={16} />
     </>
   );
 }
+

@@ -1,7 +1,7 @@
-import blackHouse from "@/assets/project-black-house.jpg";
-import minimal from "@/assets/project-minimal.jpg";
-import villa from "@/assets/project-villa.jpg";
-import apartment from "@/assets/project-apartment.jpg";
+import blackHouse from "@/assets/project-black-house.webp";
+import minimal from "@/assets/project-minimal.webp";
+import villa from "@/assets/project-villa.webp";
+import apartment from "@/assets/project-apartment.webp";
 
 export type Project = {
   slug: string;

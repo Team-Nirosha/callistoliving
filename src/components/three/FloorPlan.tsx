@@ -1,5 +1,5 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Environment, Html, Lightformer, OrbitControls } from "@react-three/drei";
+import { Html, OrbitControls } from "@react-three/drei";
 import { Suspense, useRef, useState } from "react";
 import * as THREE from "three";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
@@ -22,12 +22,78 @@ type Room = {
 };
 
 const ROOMS: Room[] = [
-  { id: "living", name: "Living Room", x: -4, z: -3, w: 9, d: 7, material: "Italian Marble", style: "Contemporary Luxury", area: "620 sq.ft.", color: "#cbbfa8" },
-  { id: "dining", name: "Dining Room", x: 3.2, z: -4.5, w: 5.4, d: 4, material: "Smoked Oak", style: "Sculptural Modern", area: "340 sq.ft.", color: "#bfae90" },
-  { id: "kitchen", name: "Kitchen", x: 3.2, z: -0.5, w: 5.4, d: 4, material: "Calacatta & Brass", style: "Minimal Utility", area: "280 sq.ft.", color: "#d3c9b6" },
-  { id: "bedroom", name: "Bedroom", x: -4.5, z: 4.5, w: 8, d: 6, material: "Belgian Linen", style: "Soft Brutalist", area: "410 sq.ft.", color: "#c2b39a" },
-  { id: "bathroom", name: "Bathroom", x: 2.6, z: 3.6, w: 4.2, d: 4.2, material: "Travertine", style: "Spa Minimal", area: "150 sq.ft.", color: "#b9b2a4" },
-  { id: "balcony", name: "Balcony", x: 2.9, z: 7.6, w: 12, d: 3.4, material: "Travertine Deck", style: "Open Air", area: "180 sq.ft.", color: "#a89e8c" },
+  {
+    id: "living",
+    name: "Living Room",
+    x: -4,
+    z: -3,
+    w: 9,
+    d: 7,
+    material: "Italian Marble",
+    style: "Contemporary Luxury",
+    area: "620 sq.ft.",
+    color: "#cbbfa8",
+  },
+  {
+    id: "dining",
+    name: "Dining Room",
+    x: 3.2,
+    z: -4.5,
+    w: 5.4,
+    d: 4,
+    material: "Smoked Oak",
+    style: "Sculptural Modern",
+    area: "340 sq.ft.",
+    color: "#bfae90",
+  },
+  {
+    id: "kitchen",
+    name: "Kitchen",
+    x: 3.2,
+    z: -0.5,
+    w: 5.4,
+    d: 4,
+    material: "Calacatta & Brass",
+    style: "Minimal Utility",
+    area: "280 sq.ft.",
+    color: "#d3c9b6",
+  },
+  {
+    id: "bedroom",
+    name: "Bedroom",
+    x: -4.5,
+    z: 4.5,
+    w: 8,
+    d: 6,
+    material: "Belgian Linen",
+    style: "Soft Brutalist",
+    area: "410 sq.ft.",
+    color: "#c2b39a",
+  },
+  {
+    id: "bathroom",
+    name: "Bathroom",
+    x: 2.6,
+    z: 3.6,
+    w: 4.2,
+    d: 4.2,
+    material: "Travertine",
+    style: "Spa Minimal",
+    area: "150 sq.ft.",
+    color: "#b9b2a4",
+  },
+  {
+    id: "balcony",
+    name: "Balcony",
+    x: 2.9,
+    z: 7.6,
+    w: 12,
+    d: 3.4,
+    material: "Travertine Deck",
+    style: "Open Air",
+    area: "180 sq.ft.",
+    color: "#a89e8c",
+  },
 ];
 
 function RoomBlock({
@@ -163,12 +229,11 @@ export function FloorPlan() {
             intensity={2.1}
             color="#ffe7c6"
             castShadow
-            shadow-mapSize-width={1536}
-            shadow-mapSize-height={1536}
+            shadow-mapSize-width={512}
+            shadow-mapSize-height={512}
           />
-          <Environment resolution={128}>
-            <Lightformer intensity={1.2} position={[0, 8, 2]} scale={[16, 10, 1]} color="#fff1dd" />
-          </Environment>
+          {/* Lightweight IBL substitute — avoids gainmap-js dependency */}
+          <hemisphereLight args={["#fff1dd", "#2a251f", 1.2]} position={[0, 8, 2]} />
           <mesh rotation-x={-Math.PI / 2} position={[0, -0.02, 0]} receiveShadow>
             <planeGeometry args={[60, 60]} />
             <meshStandardMaterial color="#1d1a16" roughness={1} />

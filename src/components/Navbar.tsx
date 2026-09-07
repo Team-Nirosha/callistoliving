@@ -36,8 +36,12 @@ export function Navbar({ onEnquire }: { onEnquire?: () => void }) {
     >
       <nav className="mx-auto flex max-w-[1600px] items-center justify-between px-6 py-4 md:px-12">
         <Link to="/" {...hover} className="leading-none flex items-baseline">
-          <span className="font-display text-xl md:text-2xl tracking-[0.3em] text-sand">CALLISTO</span>
-          <span className="ml-2 text-[10px] md:text-xs uppercase tracking-[0.4em] text-gold font-medium">Living</span>
+          <span className="font-display text-xl md:text-2xl tracking-[0.3em] text-sand">
+            CALLISTO
+          </span>
+          <span className="ml-2 text-[10px] md:text-xs uppercase tracking-[0.4em] text-gold font-medium">
+            Living
+          </span>
         </Link>
 
         <div className="hidden items-center gap-7 lg:flex">

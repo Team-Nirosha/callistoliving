@@ -158,16 +158,51 @@
 @layer base {
   html {
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(201, 165, 106, 0.45) #0c0b0a;
   }
   body {
     background-color: var(--ink);
     color: var(--sand);
     font-family: var(--font-sans);
     font-weight: 400;
+    overflow-x: hidden;
+    max-width: 100vw;
   }
-  h1, h2, h3 {
+  h1,
+  h2,
+  h3 {
     font-family: var(--font-display);
     font-weight: 300;
+  }
+
+  /* Sleek custom vertical scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 0px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0c0b0a;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(201, 165, 106, 0.4);
+    border-radius: 9999px;
+    border: 2px solid #0c0b0a;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(201, 165, 106, 0.85);
+  }
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  /* Strictly suppress horizontal scrollbar on all sides */
+  ::-webkit-scrollbar:horizontal {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
   }
 }
 
@@ -201,4 +236,9 @@
     width: 0;
     height: 0;
   }
+}
+
+@utility content-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 700px;
 }

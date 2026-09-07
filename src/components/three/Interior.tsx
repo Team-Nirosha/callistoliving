@@ -71,15 +71,54 @@ function Sofa({ position }: { position: [number, number, number] }) {
   useFrame((s) => {
     if (g.current) g.current.position.y = position[1] + Math.sin(s.clock.elapsedTime * 0.6) * 0.012;
   });
-  const info = { title: "Sofa", lines: ["Italian leather", "Custom design", "Hand-stitched frame"] };
+  const info = {
+    title: "Sofa",
+    lines: ["Italian leather", "Custom design", "Hand-stitched frame"],
+  };
   return (
     <group ref={g} position={position}>
-      <Box args={[4.4, 0.5, 1.7]} position={[0, 0.42, 0]} color="#3b342e" roughness={0.85} info={info} />
-      <Box args={[4.4, 1.0, 0.35]} position={[0, 0.9, -0.7]} color="#463d35" roughness={0.85} info={info} />
-      <Box args={[0.35, 0.7, 1.7]} position={[-2.0, 0.75, 0]} color="#463d35" roughness={0.85} info={info} />
-      <Box args={[0.35, 0.7, 1.7]} position={[2.0, 0.75, 0]} color="#463d35" roughness={0.85} info={info} />
-      <Box args={[0.9, 0.22, 0.8]} position={[-1.1, 0.76, 0.05]} color="#8d7f6c" roughness={0.95} info={info} />
-      <Box args={[0.9, 0.22, 0.8]} position={[0.9, 0.76, 0.05]} color="#a3947e" roughness={0.95} info={info} />
+      <Box
+        args={[4.4, 0.5, 1.7]}
+        position={[0, 0.42, 0]}
+        color="#3b342e"
+        roughness={0.85}
+        info={info}
+      />
+      <Box
+        args={[4.4, 1.0, 0.35]}
+        position={[0, 0.9, -0.7]}
+        color="#463d35"
+        roughness={0.85}
+        info={info}
+      />
+      <Box
+        args={[0.35, 0.7, 1.7]}
+        position={[-2.0, 0.75, 0]}
+        color="#463d35"
+        roughness={0.85}
+        info={info}
+      />
+      <Box
+        args={[0.35, 0.7, 1.7]}
+        position={[2.0, 0.75, 0]}
+        color="#463d35"
+        roughness={0.85}
+        info={info}
+      />
+      <Box
+        args={[0.9, 0.22, 0.8]}
+        position={[-1.1, 0.76, 0.05]}
+        color="#8d7f6c"
+        roughness={0.95}
+        info={info}
+      />
+      <Box
+        args={[0.9, 0.22, 0.8]}
+        position={[0.9, 0.76, 0.05]}
+        color="#a3947e"
+        roughness={0.95}
+        info={info}
+      />
       {[-2.0, 2.0].map((x) =>
         [-0.6, 0.6].map((z) => (
           <mesh key={`${x}${z}`} position={[x, 0.09, z]} castShadow>
@@ -110,7 +149,7 @@ function CoffeeTable({ position }: { position: [number, number, number] }) {
         <meshStandardMaterial map={getTexture("stone")} color="#cfc8ba" roughness={0.7} />
       </mesh>
       <mesh ref={deco} position={[0, 0.6, 0]} castShadow>
-        <torusKnotGeometry args={[0.16, 0.05, 90, 12]} />
+        <torusKnotGeometry args={[0.16, 0.05, 48, 8]} />
         <meshStandardMaterial color={GOLD} metalness={1} roughness={0.22} />
       </mesh>
     </group>
@@ -120,7 +159,10 @@ function CoffeeTable({ position }: { position: [number, number, number] }) {
 function Pendant({ position, scale = 1 }: { position: [number, number, number]; scale?: number }) {
   const g = useRef<THREE.Group>(null);
   const light = useRef<THREE.PointLight>(null);
-  const info = { title: "Pendant Light", lines: ["Brass finish", "Handcrafted", "Dimmable warm LED"] };
+  const info = {
+    title: "Pendant Light",
+    lines: ["Brass finish", "Handcrafted", "Dimmable warm LED"],
+  };
   const handlers = useInteractive(info);
   useFrame((s) => {
     const t = s.clock.elapsedTime;
@@ -138,14 +180,21 @@ function Pendant({ position, scale = 1 }: { position: [number, number, number]; 
         <meshStandardMaterial color="#2a2622" />
       </mesh>
       <mesh position={[0, -1.9, 0]} castShadow {...handlers}>
-        <coneGeometry args={[0.42, 0.5, 28, 1, true]} />
+        <coneGeometry args={[0.42, 0.5, 12, 1, true]} />
         <meshStandardMaterial color={GOLD} metalness={1} roughness={0.25} side={THREE.DoubleSide} />
       </mesh>
       <mesh position={[0, -2.05, 0]}>
-        <sphereGeometry args={[0.13, 16, 16]} />
+        <sphereGeometry args={[0.13, 12, 12]} />
         <meshStandardMaterial color="#fff2d8" emissive="#ffd9a0" emissiveIntensity={3} />
       </mesh>
-      <pointLight ref={light} position={[0, -2.1, 0]} color="#ffd7a0" distance={11} decay={2} castShadow={false} />
+      <pointLight
+        ref={light}
+        position={[0, -2.1, 0]}
+        color="#ffd7a0"
+        distance={11}
+        decay={2}
+        castShadow={false}
+      />
     </group>
   );
 }
@@ -184,7 +233,11 @@ function Plant({ position }: { position: [number, number, number] }) {
         {leaves.map((l, i) => (
           <mesh key={i} position={l.p} rotation={l.r} scale={l.s} castShadow>
             <icosahedronGeometry args={[1, 0]} />
-            <meshStandardMaterial color={i % 3 === 0 ? "#4e6046" : "#5d7051"} roughness={0.9} flatShading />
+            <meshStandardMaterial
+              color={i % 3 === 0 ? "#4e6046" : "#5d7051"}
+              roughness={0.9}
+              flatShading
+            />
           </mesh>
         ))}
       </group>
@@ -194,19 +247,26 @@ function Plant({ position }: { position: [number, number, number] }) {
 
 function Curtain({ position }: { position: [number, number, number] }) {
   const ref = useRef<THREE.Mesh>(null);
-  const geo = useMemo(() => new THREE.PlaneGeometry(2.2, 5, 18, 2), []);
-  const base = useMemo(() => Float32Array.from(geo.attributes.position.array), [geo]);
-  useFrame((s) => {
-    const t = s.clock.elapsedTime;
-    const pos = geo.attributes.position;
+  const geo = useMemo(() => {
+    const g = new THREE.PlaneGeometry(2.2, 5, 12, 2);
+    const pos = g.attributes.position;
     for (let i = 0; i < pos.count; i++) {
-      const x = base[i * 3];
-      const y = base[i * 3 + 1];
-      pos.setZ(i, Math.sin(x * 3 + t * 0.9) * 0.12 * ((5 - (y + 2.5)) / 5 + 0.3));
+      const x = pos.getX(i);
+      const y = pos.getY(i);
+      pos.setZ(i, Math.sin(x * 3.5) * 0.1 * ((5 - (y + 2.5)) / 5 + 0.3));
     }
-    pos.needsUpdate = true;
-    if (ref.current) ref.current.rotation.y = Math.sin(t * 0.3) * 0.02;
+    g.computeVertexNormals();
+    return g;
+  }, []);
+
+  useFrame((s) => {
+    if (ref.current) {
+      const t = s.clock.elapsedTime;
+      ref.current.rotation.y = Math.sin(t * 0.4) * 0.025;
+      ref.current.position.z = position[2] + Math.cos(t * 0.3) * 0.015;
+    }
   });
+
   return (
     <mesh ref={ref} geometry={geo} position={position} castShadow>
       <meshStandardMaterial
@@ -221,7 +281,13 @@ function Curtain({ position }: { position: [number, number, number] }) {
   );
 }
 
-function Artwork({ position, rotation }: { position: [number, number, number]; rotation?: [number, number, number] }) {
+function Artwork({
+  position,
+  rotation,
+}: {
+  position: [number, number, number];
+  rotation?: [number, number, number];
+}) {
   const info = { title: "Artwork", lines: ["Commissioned canvas", "Oil on linen, 2024"] };
   const handlers = useInteractive(info);
   return (
@@ -339,7 +405,10 @@ function Dining() {
 }
 
 function Kitchen() {
-  const info = { title: "Kitchen Island", lines: ["Book-matched marble", "Integrated brass fittings"] };
+  const info = {
+    title: "Kitchen Island",
+    lines: ["Book-matched marble", "Integrated brass fittings"],
+  };
   const handlers = useInteractive(info);
   return (
     <group position={[30, 0, -2]}>
